@@ -1,0 +1,20 @@
+Para começar, faça o clone do repositório - ok
+
+Criar: login, registro e dashboard 
+    criar html inicial (usar mock se necessário) - ok 
+
+Crie rotas diferentes com o React Router para: login, registro e dashboard (ver demo)
+
+criar estilização inicial
+
+Configure a API utilizando o axios/insomnia 
+
+criar as verificações para os forms (ver demo)
+
+criar a comunicão dos forms com as apis(solicitações e feedback usuario)
+
+criar redirecionamentos, verificações e local storage
+
+verificar formatação código 
+
+
