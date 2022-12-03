@@ -1,4 +1,5 @@
-import { Logo } from"../../assets/logo.svg" 
+import { Link } from "react-router-dom";
+import Logo from"../../assets/logo.svg" 
 import { FormRegister } from "../../components/form";
 
 const RegisterPage = () => {
@@ -6,7 +7,7 @@ const RegisterPage = () => {
         <>
             <div>
                 <img src={Logo} alt="Logo" />
-                <button>Voltar</button>
+                <Link to="/"><button>Voltar</button></Link>
             </div>
             <FormRegister/>
         </>
