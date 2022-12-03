@@ -5,11 +5,11 @@ Criar: login, registro e dashboard
 
 Crie rotas diferentes com o React Router para: login, registro e dashboard (ver demo) - ok
 
-criar estilização inicial
+criar estilização inicial ok 
 
-Configure a API utilizando o axios/insomnia 
+Configure a API utilizando o axios/insomnia ok
 
-criar as verificações para os forms (ver demo)
+criar as verificações para os forms (ver demo) 
 
 criar a comunicão dos forms com as apis(solicitações e feedback usuario)
 
