@@ -1,47 +1,51 @@
 import { Link } from "react-router-dom";
+import StyledForm from "./style";
+import { Title1, HeadlineBold, Headline } from "../../styles/components/typography";
+import { StyledLabel, StyledInput, StyledSelect } from "../../styles/components/inputs";
+import { StyledButton } from "../../styles/components/buttons";
 
 export const FormLogin = () => {
     
     return (  
-        <form>
-            <h2>Login</h2>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Digite aqui seu email" />
-            <label htmlFor="password">Senha</label>
-            <input type="password" id="password" placeholder="Digite aqui sua senha" />
-            <button type="submit">Entrar</button>
-            <p>Ainda não possui uma conta?</p>
-            <Link to={"/register"}><button>Cadastre-se</button></Link>
-        </form>
+        <StyledForm>
+            <Title1 color="grey-0">Login</Title1>
+            <StyledLabel htmlFor="email">Email</StyledLabel>
+            <StyledInput type="email" id="email" placeholder="Digite aqui seu email" />
+            <StyledLabel htmlFor="password">Senha</StyledLabel>
+            <StyledInput type="password" id="password" placeholder="Digite aqui sua senha" />
+            <StyledButton size="default" color="primary" type="submit">Entrar</StyledButton>
+            <HeadlineBold color="grey-1">Ainda não possui uma conta?</HeadlineBold>
+            <Link to={"/register"}><StyledButton size="default" color="disabledOne">Cadastre-se</StyledButton></Link>
+        </StyledForm>
     );
 }
 
 export const FormRegister = () => {
     return (  
-        <form>
-            <h2>Crie sua conta</h2>
-            <h3>Rapido e grátis, vamos nessa</h3>
-            <label htmlFor="name">Nome</label>
-            <input type="text" id="name" placeholder="Digite aqui seu nome" />
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" placeholder="Digite aqui seu email" />
-            <label htmlFor="password">Senha</label>
-            <input type="password" id="password" placeholder="Digite aqui sua senha" />
-            <label htmlFor="confirmPassword">Confirmar Senha</label>
-            <input type="password" id="confirmPassword" placeholder="Digite novamente sua senha" />
-            <label htmlFor="bio">Bio</label>
-            <input type="text" id="bio" placeholder="Fale sobre você" />
-            <label htmlFor="contact">Conato</label>
-            <input type="text" id="contact" placeholder="Opção de contato" />
-            <label htmlFor="module">Bio</label>
-            <select name="module" id="module">
+        <StyledForm>
+            <Title1 color="grey-0">Crie sua conta</Title1>
+            <Headline color="grey-1">Rapido e grátis, vamos nessa</Headline>
+            <StyledLabel htmlFor="name">Nome</StyledLabel>
+            <StyledInput type="text" id="name" placeholder="Digite aqui seu nome" />
+            <StyledLabel htmlFor="email">Email</StyledLabel>
+            <StyledInput type="email" id="email" placeholder="Digite aqui seu email" />
+            <StyledLabel htmlFor="password">Senha</StyledLabel>
+            <StyledInput type="password" id="password" placeholder="Digite aqui sua senha" />
+            <StyledLabel htmlFor="confirmPassword">Confirmar Senha</StyledLabel>
+            <StyledInput type="password" id="confirmPassword" placeholder="Digite novamente sua senha" />
+            <StyledLabel htmlFor="bio">Bio</StyledLabel>
+            <StyledInput type="text" id="bio" placeholder="Fale sobre você" />
+            <StyledLabel htmlFor="contact">Conato</StyledLabel>
+            <StyledInput type="text" id="contact" placeholder="Opção de contato" />
+            <StyledLabel htmlFor="module">Bio</StyledLabel>
+            <StyledSelect name="module" id="module">
                 <option value="moudle-one">Primeiro Módulo</option>
                 <option value="moudle-two">Segundo Módulo</option>
                 <option value="moudle-three">Terceiro Módulo</option>
                 <option value="moudle-four">Quarto Módulo</option>
-            </select>
-            <button type="submit">Cadastrar</button>
-        </form>
+            </StyledSelect>
+            <StyledButton size="default" color="primary" type="submit">Cadastrar</StyledButton>
+        </StyledForm>
     );
 }
  
