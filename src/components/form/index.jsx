@@ -39,10 +39,10 @@ export const FormRegister = () => {
             <StyledInput type="text" id="contact" placeholder="Opção de contato" />
             <StyledLabel htmlFor="module">Bio</StyledLabel>
             <StyledSelect name="module" id="module">
-                <option value="moudle-one">Primeiro Módulo</option>
-                <option value="moudle-two">Segundo Módulo</option>
-                <option value="moudle-three">Terceiro Módulo</option>
-                <option value="moudle-four">Quarto Módulo</option>
+                <option value="module-one">Primeiro módulo (Introdução ao Frontend)</option>
+                <option value="module-two">Segundo módulo (Frontend Avançado)</option>
+                <option value="module-three">Terceiro módulo (Introdução ao Backend)</option>
+                <option value="module-four">Quarto módulo (Backend Avançado)</option>
             </StyledSelect>
             <StyledButton size="default" color="primary" type="submit">Cadastrar</StyledButton>
         </StyledForm>
