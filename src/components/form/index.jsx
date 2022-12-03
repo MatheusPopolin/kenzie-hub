@@ -1,4 +1,7 @@
+import { Link } from "react-router-dom";
+
 export const FormLogin = () => {
+    
     return (  
         <form>
             <h2>Login</h2>
@@ -8,7 +11,7 @@ export const FormLogin = () => {
             <input type="password" id="password" placeholder="Digite aqui sua senha" />
             <button type="submit">Entrar</button>
             <p>Ainda não possui uma conta?</p>
-            <button>Cadastra-se</button>
+            <Link to={"/register"}><button>Cadastre-se</button></Link>
         </form>
     );
 }

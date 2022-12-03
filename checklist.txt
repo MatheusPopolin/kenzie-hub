@@ -3,7 +3,7 @@ Para começar, faça o clone do repositório - ok
 Criar: login, registro e dashboard 
     criar html inicial (usar mock se necessário) - ok 
 
-Crie rotas diferentes com o React Router para: login, registro e dashboard (ver demo)
+Crie rotas diferentes com o React Router para: login, registro e dashboard (ver demo) - ok
 
 criar estilização inicial
 
