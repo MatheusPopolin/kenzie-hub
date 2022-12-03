@@ -61,6 +61,7 @@ export const FormRegister = () => {
             <StyledInput type="text" id="contact" placeholder="Opção de contato de sua preferência" {...register("contact")}/>
 
             <StyledLabel htmlFor="module">Bio</StyledLabel>
+
             <StyledSelect name="module" id="module" {...register("course_module")}>
                 <option value="Primeiro módulo (Introdução ao Frontend)">Primeiro módulo (Introdução ao Frontend)</option>
                 <option value="Segundo módulo (Frontend Avançado)">Segundo módulo (Frontend Avançado)</option>
