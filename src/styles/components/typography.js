@@ -24,17 +24,17 @@ export const Headline = styled.p`
   font-size: 0.75rem;
   line-height: 1.375rem;
   color: var(--color-${({ color }) => color});
-`;  
+`;
 export const HeadlineBold = styled.p`
   font-weight: 600;
   font-size: 0.75rem;
   line-height: 1.125rem;
   color: var(--color-${({ color }) => color});
-`;  
+`;
 export const HeadlineItalic = styled.p`
   font-style: italic;
   font-weight: 400;
   font-size: 0.75rem;
   line-height: 1.125rem;
   color: var(--color-${({ color }) => color});
-`;  
+`;

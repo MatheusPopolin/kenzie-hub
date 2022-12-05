@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledHeader = styled.header`
+export const StyledHeader = styled.header`
   width: 100vw;
   height: 118px;
 
@@ -14,4 +14,3 @@ const StyledHeader = styled.header`
     justify-content: space-between;
   }
 `;
-export default StyledHeader;

@@ -1,21 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-const StyledRegisterPage = styled.div`
-    min-height: 100vh;
+export const StyledRegisterPage = styled.div`
+  min-height: 100%;
+  display: flex;
+  margin-top: 40px;
+  margin-bottom: 20px;
+
+  > div > div {
+    width: 100%;
+    max-width: 370px;
     display: flex;
-    margin: 40px 0;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    > div > div{
-        width: 100%;
-        max-width: 370px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    >div{
-        gap: 20px;
-    }
+  > div {
+    gap: 20px;
+  }
 `;
-
-export default StyledRegisterPage;

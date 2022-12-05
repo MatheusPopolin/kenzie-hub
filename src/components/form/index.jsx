@@ -1,13 +1,16 @@
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup"
+import  * as yup  from "yup"
+
+import { useState } from "react";
+import { api } from "../../services/api";
+import { toast } from "react-toastify"
 import { Link, useNavigate } from "react-router-dom";
-import StyledForm from "./style";
+
+import { StyledForm } from "./style";
 import { Title1, HeadlineBold, Headline } from "../../styles/components/typography";
 import { StyledLabel, StyledInput, StyledSelect } from "../../styles/components/inputs";
 import { StyledButton } from "../../styles/components/buttons";
-import { useForm } from "react-hook-form";
-import  * as yup  from "yup"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { useState } from "react";
-import { api } from "../../services/api";
 
 export const FormLogin = ({setUser}) => {
     const navigate = useNavigate();
@@ -17,11 +20,11 @@ export const FormLogin = ({setUser}) => {
     const loginSchema = yup.object().shape({
         email: yup
             .string()
-            .required("Este campo é obrigatório")
+            .required("Campo obrigatório")
             .email("Formato inválido"),        
         password: yup
             .string()
-            .required("Este campo é obrigatório")
+            .required("Campo obrigatório")
     })
     
     const { register, handleSubmit, formState: {errors}}  = useForm({
@@ -36,9 +39,10 @@ export const FormLogin = ({setUser}) => {
             window.localStorage.clear()
             window.localStorage.setItem("@TOKEN", response.data.token)
             window.localStorage.setItem("@USERID", response.data.user.id)
-            navigate(`/dashboard/${response.data.user.id}`)
+            toast.success("Login bem sucedido")
+            setTimeout(() => navigate(`/dashboard/${response.data.user.id}`), 1000)            
         } catch (error) {
-            console.log(error.response.data.message)
+            toast.error("Email ou senha inválidos")
         } finally{
             setTimeout(() => setLoading(false), 1000)
         }
@@ -54,11 +58,11 @@ export const FormLogin = ({setUser}) => {
             <Title1 color="grey-0">Login</Title1>
 
             <StyledLabel htmlFor="email">Email</StyledLabel>
-            <StyledInput type="email" id="email" placeholder="Digite aqui seu email" {...register("email")}/>
+            <StyledInput color={errors.email} type="email" id="email" placeholder="Digite aqui seu email" {...register("email")}/>
             {errors.email?.message && <Headline color="negative">{errors.email.message}</Headline>}
 
             <StyledLabel htmlFor="password">Senha</StyledLabel>
-            <StyledInput type="password" id="password" placeholder="Digite aqui sua senha" {...register("password")}/>
+            <StyledInput color={errors.password} type="password" id="password" placeholder="Digite aqui sua senha" {...register("password")}/>
             {errors.password?.message && <Headline color="negative">{errors.password.message}</Headline>}
             
             <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading? "Entrando..." : "Entrar"}</StyledButton>
@@ -77,31 +81,31 @@ export const FormRegister = () => {
     const registerSchema = yup.object().shape({
         name: yup
             .string()
-            .required("Este campo é obrigatório"),
+            .required("Informe um nome"),
         email: yup
             .string()
-            .required("Este campo é obrigatório")
+            .required("Informe um email")
             .email("Formato inválido"),
         password: yup
             .string()
-            .required("Este campo é obrigatório")
+            .required("Informe uma senha")
             .matches(/(?=.*[a-zA-Z])/, "É necessário uma letra")
             .matches(/(?=.*[0-9])/, "É necessário um número")
             .matches(/(?=.*[$*&@#])/, "É necessário um caractere especial")
             .min(8, "É necessário pelo menos 8 caracteres"),
         password_confirm: yup
             .string()
-            .required("Este campo é obrigatório")
+            .required("Campo obrigatório")
             .oneOf([yup.ref("password")], "As senhas não coincidem"),
         bio: yup
             .string()
-            .required("Este campo é obrigatório"),
+            .required("Campo obrigatório"),
         contact: yup
             .string()
-            .required("Este campo é obrigatório"),
+            .required("Campo obrigatório"),
         course_module: yup
             .string()
-            .required("Este campo é obrigatório"),
+            .required("Selecione um módulo"),
     })
 
     const { register, handleSubmit, formState : {errors}}  = useForm({
@@ -122,10 +126,10 @@ export const FormRegister = () => {
         try {
             setLoading(true)
             const response = await api.post("users", userData)
-            console.log(response.data)
-            navigate("/")          
+            toast.success("Cadastro realizado com sucesso!")
+            setTimeout(() => navigate("/"), 1000)                     
         } catch (error) {
-            console.log(error.response.data.message)
+            toast.error("Email já cadastrado")
         } finally{
             setTimeout(() => setLoading(false), 1000)
         }
@@ -138,34 +142,34 @@ export const FormRegister = () => {
     return (  
         <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
             <Title1 color="grey-0">Crie sua conta</Title1>
-            <Headline color="grey-1">Rapido e grátis, vamos nessa</Headline>
+            <Headline color="grey-1">Rapido e grátis, vamos nessa!</Headline>
 
             <StyledLabel htmlFor="name">Nome</StyledLabel>
-            <StyledInput type="text" id="name" placeholder="Digite aqui seu nome" {...register("name")}/>
+            <StyledInput color={errors.name} type="text" id="name" placeholder="Digite aqui seu nome" {...register("name")}/>
             {errors.name?.message && <Headline color="negative">{errors.name.message}</Headline>}
 
             <StyledLabel htmlFor="email">Email</StyledLabel>
-            <StyledInput type="email" id="email" placeholder="Digite aqui seu email" {...register("email")}/>
+            <StyledInput color={errors.email} type="email" id="email" placeholder="Digite aqui seu email" {...register("email")}/>
             {errors.email?.message && <Headline color="negative">{errors.email.message}</Headline>}
             
             <StyledLabel htmlFor="password">Senha</StyledLabel>
-            <StyledInput type="password" id="password" placeholder="Digite aqui sua senha" {...register("password")}/>
+            <StyledInput color={errors.password} type="password" id="password" placeholder="Digite aqui sua senha" {...register("password")}/>
             {errors.password?.message && <Headline color="negative">{errors.password.message}</Headline>}
 
             <StyledLabel htmlFor="password_confirm">Confirmar Senha</StyledLabel>
-            <StyledInput type="password" id="password_confirm" placeholder="Digite novamente sua senha" {...register("password_confirm")}/>
+            <StyledInput color={errors.password_confirm} type="password" id="password_confirm" placeholder="Digite novamente sua senha" {...register("password_confirm")}/>
             {errors.password_confirm?.message && <Headline color="negative">{errors.password_confirm.message}</Headline>}
 
             <StyledLabel htmlFor="bio">Bio</StyledLabel>
-            <StyledInput type="text" id="bio" placeholder="Fale sobre você" {...register("bio")}/>
+            <StyledInput color={errors.bio} type="text" id="bio" placeholder="Fale sobre você" {...register("bio")}/>
             {errors.bio?.message && <Headline color="negative">{errors.bio.message}</Headline>}
 
             <StyledLabel htmlFor="contact">Contato</StyledLabel>
-            <StyledInput type="text" id="contact" placeholder="Opção de contato de sua preferência" {...register("contact")}/>
+            <StyledInput color={errors.contact} type="text" id="contact" placeholder="Opção de contato de sua preferência" {...register("contact")}/>
             {errors.contact?.message && <Headline color="negative">{errors.contact.message}</Headline>}
 
-            <StyledLabel htmlFor="module">Bio</StyledLabel>
-            <StyledSelect name="module" id="module" {...register("course_module")}>
+            <StyledLabel htmlFor="module">Módulo</StyledLabel>
+            <StyledSelect color={errors.course_module} name="module" id="module" {...register("course_module")}>
                 <option value="">Módulo:</option>
                 <option value="Primeiro módulo (Introdução ao Frontend)">Primeiro módulo (Introdução ao Frontend)</option>
                 <option value="Segundo módulo (Frontend Avançado)">Segundo módulo (Frontend Avançado)</option>
