@@ -21,6 +21,7 @@ const StyledForm = styled.form`
   a{
     width: 100%;
   }
+
 `;
 
 export default StyledForm;
