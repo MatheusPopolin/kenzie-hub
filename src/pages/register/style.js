@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const StyledRegisterPage = styled.div`
     min-height: 100vh;
     display: flex;
-    align-items: center;
     margin: 40px 0;
 
     > div > div{

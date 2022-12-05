@@ -9,9 +9,9 @@ criar estilização inicial ok
 
 Configure a API utilizando o axios/insomnia ok
 
-criar as verificações para os forms (ver demo) 
+criar as verificações para os forms (ver demo) - ok
 
-criar a comunicão dos forms com as apis(solicitações e feedback usuario)
+criar a comunicão dos forms com as apis(solicitações e feedback usuario) 
 
 criar redirecionamentos, verificações e local storage
 
