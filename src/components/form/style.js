@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledForm = styled.form`
+export const StyledForm = styled.form`
   padding: 42px 22px;
   display: flex;
   flex-direction: column;
@@ -14,14 +14,11 @@ const StyledForm = styled.form`
   box-shadow: 0px 4px 40px -10px rgba(0, 0, 0, 0.25);
   border-radius: var(--radius-2);
 
-  button{
+  button {
     width: 100%;
   }
 
-  a{
+  a {
     width: 100%;
   }
-
 `;
-
-export default StyledForm;

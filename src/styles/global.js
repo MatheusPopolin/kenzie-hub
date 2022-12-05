@@ -10,6 +10,7 @@ export const Global = createGlobalStyle`
     font-family: 'Inter', sans-serif;
     font-style: normal;
     }
+
     body{
         background-color: var(--color-grey-4);
     }
@@ -47,5 +48,10 @@ export const Global = createGlobalStyle`
 
     --radius-1: 8px;
     --radius-2: 4px;
+
+    /* Toast Palette */
+    --toastify-color-dark : #343B41 ;  
+    --toastify-color-success : #3FE864 ;  
+    --toastify-color-error : #E83F5B ;   
     }    
 `;
