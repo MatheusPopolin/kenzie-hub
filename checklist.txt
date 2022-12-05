@@ -11,10 +11,36 @@ Configure a API utilizando o axios/insomnia ok
 
 criar as verificações para os forms (ver demo) - ok
 
-criar a comunicão dos forms com as apis(solicitações e feedback usuario) 
+criar a comunicão dos forms com as apis(solicitações) - ok 
 
-criar redirecionamentos, verificações e local storage
+criar toasts
+
+criar redirecionamentos, verificações e local storage - ok 
 
 verificar formatação código 
 
+
+bio
+: 
+"Teste de aplicação"
+
+contact
+: 
+"https://www.linkedin.com/in/matheus-popolin-63a100246/"
+
+course_module
+: 
+"Segundo módulo (Frontend Avançado)"
+
+email
+: 
+"matheuspopolin@hotmail.com"
+
+id
+: 
+"a37faa91-31d4-4a0f-8103-5516ac30fbae"
+
+name
+: 
+"Matheus Popolin"
 

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StyledForm from "./style";
 import { Title1, HeadlineBold, Headline } from "../../styles/components/typography";
 import { StyledLabel, StyledInput, StyledSelect } from "../../styles/components/inputs";
@@ -6,8 +6,14 @@ import { StyledButton } from "../../styles/components/buttons";
 import { useForm } from "react-hook-form";
 import  * as yup  from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { useState } from "react";
+import { api } from "../../services/api";
 
-export const FormLogin = () => {
+export const FormLogin = ({setUser}) => {
+    const navigate = useNavigate();
+
+    const [loading , setLoading] = useState(false)    
+
     const loginSchema = yup.object().shape({
         email: yup
             .string()
@@ -22,8 +28,25 @@ export const FormLogin = () => {
         resolver: yupResolver(loginSchema)
     })
 
+    const userLogin =  async (data) => {
+        try {
+            setLoading(true)
+            const response = await api.post("sessions", data)
+            setUser(response.data.user)
+            window.localStorage.clear()
+            window.localStorage.setItem("@TOKEN", response.data.token)
+            window.localStorage.setItem("@USERID", response.data.user.id)
+            navigate(`/dashboard/${response.data.user.id}`)
+        } catch (error) {
+            console.log(error.response.data.message)
+        } finally{
+            setTimeout(() => setLoading(false), 1000)
+        }
+    }
+
+    
     const onSubmit = (data) =>{
-        console.log(data)
+        userLogin(data)
     }
 
     return (  
@@ -38,7 +61,7 @@ export const FormLogin = () => {
             <StyledInput type="password" id="password" placeholder="Digite aqui sua senha" {...register("password")}/>
             {errors.password?.message && <Headline color="negative">{errors.password.message}</Headline>}
             
-            <StyledButton size="default" color="primary" type="submit">Entrar</StyledButton>
+            <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading? "Entrando..." : "Entrar"}</StyledButton>
 
             <HeadlineBold color="grey-1">Ainda não possui uma conta?</HeadlineBold>
             <Link to={"/register"}><StyledButton size="default" color="disabledOne">Cadastre-se</StyledButton></Link>
@@ -47,6 +70,10 @@ export const FormLogin = () => {
 }
 
 export const FormRegister = () => {
+    const navigate = useNavigate();
+
+    const [loading , setLoading] = useState(false)
+
     const registerSchema = yup.object().shape({
         name: yup
             .string()
@@ -76,14 +103,36 @@ export const FormRegister = () => {
             .string()
             .required("Este campo é obrigatório"),
     })
-    
 
     const { register, handleSubmit, formState : {errors}}  = useForm({
-        resolver: yupResolver(registerSchema)
+        resolver: yupResolver(registerSchema),
+        mode: "onBlur"
     })
 
-    const onSubmit = (data) =>{
-        console.log(data)
+    const userRegister =  async (formData) => {
+        const {name, email, password, bio, contact, course_module} = formData
+        const userData = {
+            name: name,
+            email: email,
+            password: password,
+            bio: bio,
+            contact: contact,
+            course_module: course_module
+        }
+        try {
+            setLoading(true)
+            const response = await api.post("users", userData)
+            console.log(response.data)
+            navigate("/")          
+        } catch (error) {
+            console.log(error.response.data.message)
+        } finally{
+            setTimeout(() => setLoading(false), 1000)
+        }
+    }
+
+    const onSubmit = async (data) =>{
+        await userRegister(data)
     }
 
     return (  
@@ -125,7 +174,7 @@ export const FormRegister = () => {
             </StyledSelect>
             {errors.course_module?.message && <Headline color="negative">{errors.course_module.message}</Headline>}
 
-            <StyledButton size="default" color="primary" type="submit">Cadastrar</StyledButton>
+            <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading ? "Cadastrando..." : "Cadastrar"}</StyledButton>
         </StyledForm>
     );
 }
