@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Routes, Route, Navigate } from "react-router";
 import { LoginPage } from "./pages/login";
 import { RegisterPage } from "./pages/register";
@@ -7,7 +6,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
-  // const [user, setUser] = useState("");
 
   return (
     <div className="App">
