@@ -6,14 +6,19 @@ import Logo from "../../assets/logo.svg";
 import { StyledButton } from "../../styles/components/buttons";
 import { StyledHeader } from "../../styles/components/header";
 import { HeadlineBold, Title1, Title2} from "../../styles/components/typography";
+import { useContext } from "react";
+import { UserContext } from "../../providers/UserContext" 
 
-export const DashboardPage = ({ user, setUser }) => {
+export const DashboardPage = () => {
+  const {user, setUser} = useContext(UserContext)
+  
   const navigate = useNavigate();
 
   const logout = (e) => {
     e.preventDefault();
     setUser("");
-    window.localStorage.clear();
+    window.localStorage.removeItem("@KENZIEHUB:Token");
+    window.localStorage.removeItem("@KENZIEHUB:UserID");
     navigate("/");
   };
 
