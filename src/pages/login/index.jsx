@@ -3,12 +3,12 @@ import { Container } from "../../styles/components/container";
 import Logo from "../../assets/logo.svg";
 import { FormLogin } from "../../components/form";
 
-export const LoginPage = ({ setUser }) => {
+export const LoginPage = () => {
   return (
     <StyledLoginPage>
       <Container>
         <img src={Logo} alt="Logo" />
-        <FormLogin setUser={setUser} />
+        <FormLogin/>
       </Container>
     </StyledLoginPage>
   );
