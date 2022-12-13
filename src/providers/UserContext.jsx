@@ -23,9 +23,9 @@ export const UserProvider = ({ children }) => {
           },
         });
         console.log(response)
-        setUser(response.data);  
-        navigate(`/dashboard/${response.data.id}`)
+        setUser(response.data)  
         setUserLoading(false)
+        navigate(`/dashboard/${response.data.id}`)        
       } catch (error) {
         window.localStorage.removeItem("@KENZIEHUB:Token");
         window.localStorage.removeItem("@KENZIEHUB:UserID");
