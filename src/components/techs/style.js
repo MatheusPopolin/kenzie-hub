@@ -4,7 +4,9 @@ export const StyledTechs = styled.section`
   width: 100%;
   max-width: 780px;
 
-  > div{
+  margin-bottom: 16px;
+
+  > div {
     display: flex;
     justify-content: space-between;
 

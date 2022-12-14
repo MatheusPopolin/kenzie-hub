@@ -4,11 +4,12 @@ import  * as yup  from "yup"
 
 import { useContext, useState } from "react";
 import { UserContext } from "../../providers/UserContext"
+import { TechContext } from "../../providers/TechContext"
 
 import { Link } from "react-router-dom";
 
 import { StyledForm } from "./style";
-import { Title1, HeadlineBold, Headline } from "../../styles/components/typography";
+import { Title1, HeadlineBold, Headline, Title2 } from "../../styles/components/typography";
 import { StyledLabel, StyledInput, StyledSelect } from "../../styles/components/inputs";
 import { StyledButton } from "../../styles/components/buttons";
 
@@ -144,9 +145,9 @@ export const FormRegister = () => {
     );
 }
 
-export const FormRegisterTech = () => {
-    // const {userLogin} = useContext(UserContext)
-    
+export const FormRegisterTech = ({setAddTechModalOpenned}) => {
+    const {techRegister} = useContext(TechContext)
+
     const [loading , setLoading] = useState(false)    
 
     const registerTechSchema = yup.object().shape({
@@ -162,9 +163,9 @@ export const FormRegisterTech = () => {
         resolver: yupResolver(registerTechSchema)
     })
     
-    // const onSubmit = (data) =>{
-    //     userLogin(data, setLoading)
-    // }
+    const onSubmit = (data) =>{
+        techRegister(data, setLoading, setAddTechModalOpenned)
+    }
 
     return (  
         <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -183,6 +184,51 @@ export const FormRegisterTech = () => {
 
 
             <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading? "Cadastrando..." : "Cadastrar"}</StyledButton>
+        </StyledForm>
+    );
+}
+
+export const FormUpdateTech = ({tech, setViewTechModalOpenned}) => {
+    const {techUpdate, techDelete} = useContext(TechContext)
+
+    const [loading , setLoading] = useState(false)    
+
+    const updateTechSchema = yup.object().shape({    
+        status: yup
+            .string()
+            .required("Campo obrigatório")
+    })
+    
+    const { register, handleSubmit, formState: {errors}}  = useForm({
+        defaultValues: {status: tech.status},
+        resolver: yupResolver(updateTechSchema)
+    })
+    
+    const onSubmit = (data) =>{
+        techUpdate(data, tech.id, setLoading, setViewTechModalOpenned)
+    }
+
+    const onClickDelete = () =>{
+        techDelete(tech.id, setLoading, setViewTechModalOpenned)
+    }
+
+    return (  
+        <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Title2 color="grey-0">{tech.title}</Title2>
+            
+            <StyledLabel htmlFor="status">Status:</StyledLabel>
+            <StyledSelect color={errors.status} name="status" id="status" {...register("status")}>
+                <option value="Iniciante">Iniciante</option>
+                <option value="Intermediário">Intermediário</option>
+                <option value="Avançado">Avançado</option>
+            </StyledSelect>
+            {errors.status?.message && <Headline color="negative">{errors.status.message}</Headline>}
+
+
+           <div>
+                <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading? "Atualizando..." : "Atualizar"}</StyledButton>
+                <StyledButton onClick={onClickDelete} size="default" color="disabledOne" disabled={loading}>Excluir</StyledButton>
+           </div>
         </StyledForm>
     );
 }

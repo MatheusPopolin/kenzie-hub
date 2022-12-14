@@ -6,13 +6,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
-
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<LoginPage/>} />
-        <Route path="/register" element={<RegisterPage/>} />
-        <Route path="/dashboard/:id" element={<DashboardPage/>} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/dashboard/:id" element={<DashboardPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
 
@@ -31,5 +30,3 @@ export const App = () => {
     </div>
   );
 };
-
-
