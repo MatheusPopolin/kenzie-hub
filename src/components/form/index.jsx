@@ -143,4 +143,46 @@ export const FormRegister = () => {
         </StyledForm>
     );
 }
- 
+
+export const FormRegisterTech = () => {
+    // const {userLogin} = useContext(UserContext)
+    
+    const [loading , setLoading] = useState(false)    
+
+    const registerTechSchema = yup.object().shape({
+        title: yup
+            .string()
+            .required("Campo obrigatório"),       
+        status: yup
+            .string()
+            .required("Campo obrigatório")
+    })
+    
+    const { register, handleSubmit, formState: {errors}}  = useForm({
+        resolver: yupResolver(registerTechSchema)
+    })
+    
+    // const onSubmit = (data) =>{
+    //     userLogin(data, setLoading)
+    // }
+
+    return (  
+        <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
+            <StyledLabel htmlFor="title">Nome</StyledLabel>
+            <StyledInput color={errors.title} type="title" id="title" placeholder="Tecnologia" {...register("title")}/>
+            {errors.title?.message && <Headline color="negative">{errors.title.message}</Headline>}
+            
+
+            <StyledLabel htmlFor="status">Status:</StyledLabel>
+            <StyledSelect color={errors.status} name="status" id="status" {...register("status")}>
+                <option value="Iniciante">Iniciante</option>
+                <option value="Intermediário">Intermediário</option>
+                <option value="Avançado">Avançado</option>
+            </StyledSelect>
+            {errors.status?.message && <Headline color="negative">{errors.status.message}</Headline>}
+
+
+            <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading? "Cadastrando..." : "Cadastrar"}</StyledButton>
+        </StyledForm>
+    );
+}

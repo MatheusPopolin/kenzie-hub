@@ -5,14 +5,14 @@ import { StyledTechs } from "./style"
 import { Title2 } from "../../styles/components/typography";
 import { StyledButton } from "../../styles/components/buttons";
 
-export const Techs = () => {
+export const Techs = ({setAddTechModalOpenned}) => {
   const { user } = useContext(UserContext);
 
   return (
     <StyledTechs>
       <div>
         <Title2 color="grey-0">Tecnologias</Title2>
-        <StyledButton size="medium" color="disabledTwo">+</StyledButton>
+        <StyledButton size="small" color="disabledTwo" onClick={()=>setAddTechModalOpenned(true)} >+</StyledButton>
       </div>
       <ul>
         {user.techs.map(tech => (

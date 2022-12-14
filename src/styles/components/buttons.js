@@ -24,6 +24,17 @@ export const StyledButton = styled.button`
           font-size: 0.75rem;
           line-height: 1.75rem;
         `;
+        case "small":
+        return css`
+          height: 32px;
+          width: min-content;
+
+          padding: 0 8px;
+
+          font-weight: 500;
+          font-size: 1rem;
+          line-height: 1.625rem;
+        `;
     }
   }};
 
