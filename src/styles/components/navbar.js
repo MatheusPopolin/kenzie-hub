@@ -14,6 +14,8 @@ export const StyledNavbar = styled.nav`
   display: flex;
   align-items: center;
 
+  background-color: var(--color-grey-4);
+
   > div {
     flex-direction: row;
     justify-content: space-between;

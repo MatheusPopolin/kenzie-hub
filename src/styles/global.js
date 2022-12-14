@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const Global = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-    
     * {
     margin: 0;
     padding: 0;
@@ -41,6 +39,7 @@ export const Global = createGlobalStyle`
     --color-grey-2: #343B41;
     --color-grey-1: #868E96;
     --color-grey-0: #F8F9FA;
+    --color-grey-opacity: rgba(18, 18, 20, 0.5);
     
     /* Feedback Palette */
     --color-negative: #E83F5B;

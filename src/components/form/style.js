@@ -21,4 +21,11 @@ export const StyledForm = styled.form`
   a {
     width: 100%;
   }
+
+  > div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
 `;

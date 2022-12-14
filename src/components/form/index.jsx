@@ -2,19 +2,20 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import  * as yup  from "yup"
 
-import { useState } from "react";
-import { api } from "../../services/api";
-import { toast } from "react-toastify"
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { UserContext } from "../../providers/UserContext"
+import { TechContext } from "../../providers/TechContext"
+
+import { Link } from "react-router-dom";
 
 import { StyledForm } from "./style";
-import { Title1, HeadlineBold, Headline } from "../../styles/components/typography";
+import { Title1, HeadlineBold, Headline, Title2 } from "../../styles/components/typography";
 import { StyledLabel, StyledInput, StyledSelect } from "../../styles/components/inputs";
 import { StyledButton } from "../../styles/components/buttons";
 
-export const FormLogin = ({setUser}) => {
-    const navigate = useNavigate();
-
+export const FormLogin = () => {
+    const {userLogin} = useContext(UserContext)
+    
     const [loading , setLoading] = useState(false)    
 
     const loginSchema = yup.object().shape({
@@ -30,27 +31,9 @@ export const FormLogin = ({setUser}) => {
     const { register, handleSubmit, formState: {errors}}  = useForm({
         resolver: yupResolver(loginSchema)
     })
-
-    const userLogin =  async (data) => {
-        try {
-            setLoading(true)
-            const response = await api.post("sessions", data)
-            setUser(response.data.user)
-            window.localStorage.clear()
-            window.localStorage.setItem("@TOKEN", response.data.token)
-            window.localStorage.setItem("@USERID", response.data.user.id)
-            toast.success("Login bem sucedido")
-            setTimeout(() => navigate(`/dashboard/${response.data.user.id}`), 1000)            
-        } catch (error) {
-            toast.error("Email ou senha inválidos")
-        } finally{
-            setTimeout(() => setLoading(false), 1000)
-        }
-    }
-
     
     const onSubmit = (data) =>{
-        userLogin(data)
+        userLogin(data, setLoading)
     }
 
     return (  
@@ -74,7 +57,7 @@ export const FormLogin = ({setUser}) => {
 }
 
 export const FormRegister = () => {
-    const navigate = useNavigate();
+    const {userRegister} = useContext(UserContext)
 
     const [loading , setLoading] = useState(false)
 
@@ -113,30 +96,9 @@ export const FormRegister = () => {
         mode: "onBlur"
     })
 
-    const userRegister =  async (formData) => {
-        const {name, email, password, bio, contact, course_module} = formData
-        const userData = {
-            name: name,
-            email: email,
-            password: password,
-            bio: bio,
-            contact: contact,
-            course_module: course_module
-        }
-        try {
-            setLoading(true)
-            const response = await api.post("users", userData)
-            toast.success("Cadastro realizado com sucesso!")
-            setTimeout(() => navigate("/"), 1000)                     
-        } catch (error) {
-            toast.error("Email já cadastrado")
-        } finally{
-            setTimeout(() => setLoading(false), 1000)
-        }
-    }
 
     const onSubmit = async (data) =>{
-        await userRegister(data)
+        await userRegister(data, setLoading)
     }
 
     return (  
@@ -182,4 +144,91 @@ export const FormRegister = () => {
         </StyledForm>
     );
 }
- 
+
+export const FormRegisterTech = ({setAddTechModalOpenned}) => {
+    const {techRegister} = useContext(TechContext)
+
+    const [loading , setLoading] = useState(false)    
+
+    const registerTechSchema = yup.object().shape({
+        title: yup
+            .string()
+            .required("Campo obrigatório"),       
+        status: yup
+            .string()
+            .required("Campo obrigatório")
+    })
+    
+    const { register, handleSubmit, formState: {errors}}  = useForm({
+        resolver: yupResolver(registerTechSchema)
+    })
+    
+    const onSubmit = (data) =>{
+        techRegister(data, setLoading, setAddTechModalOpenned)
+    }
+
+    return (  
+        <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
+            <StyledLabel htmlFor="title">Nome</StyledLabel>
+            <StyledInput color={errors.title} type="title" id="title" placeholder="Tecnologia" {...register("title")}/>
+            {errors.title?.message && <Headline color="negative">{errors.title.message}</Headline>}
+            
+
+            <StyledLabel htmlFor="status">Status:</StyledLabel>
+            <StyledSelect color={errors.status} name="status" id="status" {...register("status")}>
+                <option value="Iniciante">Iniciante</option>
+                <option value="Intermediário">Intermediário</option>
+                <option value="Avançado">Avançado</option>
+            </StyledSelect>
+            {errors.status?.message && <Headline color="negative">{errors.status.message}</Headline>}
+
+
+            <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading? "Cadastrando..." : "Cadastrar"}</StyledButton>
+        </StyledForm>
+    );
+}
+
+export const FormUpdateTech = ({tech, setViewTechModalOpenned}) => {
+    const {techUpdate, techDelete} = useContext(TechContext)
+
+    const [loading , setLoading] = useState(false)    
+
+    const updateTechSchema = yup.object().shape({    
+        status: yup
+            .string()
+            .required("Campo obrigatório")
+    })
+    
+    const { register, handleSubmit, formState: {errors}}  = useForm({
+        defaultValues: {status: tech.status},
+        resolver: yupResolver(updateTechSchema)
+    })
+    
+    const onSubmit = (data) =>{
+        techUpdate(data, tech.id, setLoading, setViewTechModalOpenned)
+    }
+
+    const onClickDelete = () =>{
+        techDelete(tech.id, setLoading, setViewTechModalOpenned)
+    }
+
+    return (  
+        <StyledForm onSubmit={handleSubmit(onSubmit)} noValidate>
+            <Title2 color="grey-0">{tech.title}</Title2>
+            
+            <StyledLabel htmlFor="status">Status:</StyledLabel>
+            <StyledSelect color={errors.status} name="status" id="status" {...register("status")}>
+                <option value="Iniciante">Iniciante</option>
+                <option value="Intermediário">Intermediário</option>
+                <option value="Avançado">Avançado</option>
+            </StyledSelect>
+            {errors.status?.message && <Headline color="negative">{errors.status.message}</Headline>}
+
+
+           <div>
+                <StyledButton size="default" color="primary" type="submit" disabled={loading}>{loading? "Atualizando..." : "Atualizar"}</StyledButton>
+                <StyledButton onClick={onClickDelete} size="default" color="disabledOne" disabled={loading}>Excluir</StyledButton>
+           </div>
+        </StyledForm>
+    );
+}
